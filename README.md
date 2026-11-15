@@ -4,6 +4,8 @@ A one-page CFO dashboard for a mid-size B2B SaaS company. It puts the numbers a 
 
 Everything runs in the browser with no dependencies. All company, customer and financial data is synthetic.
 
+![Screenshot of the dashboard](docs/screenshot.png)
+
 **Live demo:** [salmaadan34-commits.github.io/cfo-control-center](https://salmaadan34-commits.github.io/cfo-control-center/)
 
 Companion project: the [13-week cash flow forecast](https://github.com/salmaadan34-commits/13-week-cash-flow) for the same company. The two share cash, AR and treasury policy figures, and this dashboard checks that they agree.
