@@ -4,6 +4,8 @@ A one-page CFO dashboard for a mid-size B2B SaaS company. It puts the numbers a 
 
 Everything runs in the browser with no dependencies. All company, customer and financial data is synthetic.
 
+**Live integrations:** a scheduled GitHub Actions job pulls HubSpot deals (with commission by rep), QuickBooks Online invoices and Ramp card spend from free sandbox accounts every day and refreshes the dashboard by itself. Each feed is isolated, so one failing source never breaks the others. Setup: [SETUP.md](SETUP.md).
+
 ![Screenshot of the dashboard](docs/screenshot.png)
 
 **Live demo:** [salmaadan34-commits.github.io/cfo-control-center](https://salmaadan34-commits.github.io/cfo-control-center/)
@@ -25,6 +27,7 @@ Companion project: the [13-week cash flow forecast](https://github.com/salmaadan
 | Working capital | AR, DSO, AP, DPO and deferred revenue, a DSO/DPO trend and the AR aging by bucket |
 | People and spend | Headcount and open roles by department, and department spend against budget |
 | Close and controls | Days to close against a five-day target, open reconciling items, manual journal entries, post-close adjustments |
+| Live feeds | Card spend by category (Ramp), open invoices by days past due (QuickBooks), deals grouped open / in progress / closed won, and commission earned and at stake by rep (HubSpot), with a "Last synced" label |
 | Data integrity checks | Six checks run on every render: ARR roll-forward, revenue-to-ARR, P&L footing, headcount, AR aging and cash hand-off to the forecast |
 
 Filters: any closed month from January to October 2026, as a single month or year to date. The choice is remembered in the browser.
@@ -82,13 +85,29 @@ A dashboard that executives read needs the same discipline as the close itself:
 - **Defined metrics.** Every KPI has a written definition on the page and in this README.
 - **Automated tests.** `npm test` checks the roll-forwards, year-to-date totals, variance signs, commentary coverage, runway math and the hand-off to the cash forecast.
 
+## Live integrations
+
+| Source | What it pulls | Auth |
+| --- | --- | --- |
+| HubSpot | Deals, owners and pipeline stages; commission per rep from [`data/commission_rates.json`](data/commission_rates.json) | Service key, read-only scopes |
+| QuickBooks Online | Invoices from the last 12 months: total, balance, due date, days past due | OAuth 2.0 refresh token, rotated and saved back to the repo secret by the job |
+| Ramp | Card transactions from the last 90 days: amount, merchant, category, cardholder | OAuth 2.0 client credentials, `transactions:read` |
+
+- **Schedule:** [`.github/workflows/sync-live-data.yml`](.github/workflows/sync-live-data.yml) runs daily at 13:00 UTC and on demand from the Actions tab. It runs the tests, syncs, commits `data/live/` if anything changed and requests a Pages rebuild.
+- **Sandbox only.** QuickBooks and Ramp calls are hard-wired to the vendors' sandbox hosts, because this repository and its data are public.
+- **Isolation.** Each source runs only when its secrets are set. A failure keeps that source's last good data and shows "Last sync failed" on the page; the other sources still update.
+- **Secrets.** Keys live only in GitHub repository secrets. Error messages are reduced to a short code and scrubbed of secret values, and rep emails are dropped before anything is published.
+- **Fallback.** Until a source is connected, its panel shows fictional Halden sample data, labeled as such.
+- **Tests.** `tests/live.test.js` feeds the normalizers mock API responses from each tool and runs the sync with a mock network: pagination, money in cents, custom pipeline stages, commission tie-out, a failing source, token rotation and secret leaks.
+
 ## Run it
 
 Requires Node.js 18 or later. There are no packages to install.
 
 ```bash
 npm run build     # bundles src/ into one self-contained file: dist/index.html
-npm test          # runs the engine tests
+npm test          # runs the engine and live-feed tests
+npm run sync      # pulls the live feeds (needs the keys in SETUP.md as environment variables)
 npm run data      # regenerates the CSVs in data/ from the sample data
 ```
 
@@ -101,18 +120,24 @@ The live demo is served by GitHub Pages straight from the repository root on `ma
 ```
 cfo-control-center/
 ├── index.html            Development entry point (loads src/)
+├── SETUP.md              Setting up the free test accounts and secrets
 ├── src/
 │   ├── data.js           Sample month-end tables: P&L, budget, ARR, headcount, balances, close KPIs
 │   ├── engine.js         Metrics, variance commentary, summary, watch list and integrity checks
+│   ├── live.js           Live feeds: API normalizers, commission, summaries and sample data
 │   ├── app.js            Page rendering, charts and filters
 │   ├── body.html         Page markup
 │   └── styles.css        Light and dark themes
-├── data/                 Sample data as CSV
+├── data/                 Sample data as CSV, commission rates, and live/ (written by the sync)
 ├── scripts/
 │   ├── build.js          Bundles everything into dist/index.html
+│   ├── sync.js           Daily pull from HubSpot, QuickBooks and Ramp into data/live/
+│   ├── sources/          One file per API
 │   └── export-csv.js     Writes data/*.csv from src/data.js
 ├── tests/
-│   └── engine.test.js    Node test runner tests
+│   ├── engine.test.js    Engine tests
+│   └── live.test.js      Live-feed tests with mock API responses
+├── .github/workflows/    Daily sync job
 └── docs/                 Screenshot for this README
 ```
 

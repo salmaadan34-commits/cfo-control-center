@@ -1,0 +1,7 @@
+{
+  "_note": "Commission = rate x closed-won deal amount, for deals closed this calendar year. Match reps by HubSpot owner name or email. Anyone not listed gets default_rate.",
+  "default_rate": 0.10,
+  "reps": {
+    "Example Rep": 0.12
+  }
+}

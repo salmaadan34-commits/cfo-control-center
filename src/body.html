@@ -8,7 +8,7 @@
     </div>
     <h1>CFO Control Center</h1>
     <div class="meta">
-      <span>Fiscal 2026</span><span>Books closed through October</span><span>USD thousands</span><span>Budget = board-approved FY2026 plan</span>
+      <span>Fiscal 2026</span><span>Books closed through October</span><span>USD thousands</span><span>Budget = board-approved FY2026 plan</span><span id="sync-label"></span>
     </div>
     <div class="toolbar">
       <label for="month">Period</label>
@@ -133,6 +133,35 @@
       </ul>
     </section>
   </div>
+
+  <section class="panel" aria-labelledby="h-live">
+    <div class="panel-head">
+      <div>
+        <h2 id="h-live">Live feeds: Ramp, QuickBooks and HubSpot</h2>
+        <p id="live-sub"></p>
+      </div>
+      <span class="chip" id="live-chip"></span>
+    </div>
+    <div class="stats" id="live-stats"></div>
+    <div class="grid2 even">
+      <div>
+        <h3>Card spend by category <span class="chip" id="ramp-chip"></span></h3>
+        <p class="table-note" id="ramp-sub"></p>
+        <div class="depts" id="ramp-cats"></div>
+      </div>
+      <div>
+        <h3>Open invoices <span class="chip" id="qbo-chip"></span></h3>
+        <p class="table-note" id="qbo-sub"></p>
+        <div class="aging" id="qbo-aging" role="img"></div>
+        <div class="aging-legend" id="qbo-legend"></div>
+      </div>
+    </div>
+    <div>
+      <h3>Deals and commission by rep <span class="chip" id="hs-chip"></span></h3>
+      <p class="table-note" id="hs-sub"></p>
+      <div class="table-scroll" id="hs-table"></div>
+    </div>
+  </section>
 
   <footer>
     <p>Portfolio project. Halden Systems and every customer, vendor and figure on this page are fictional.</p>

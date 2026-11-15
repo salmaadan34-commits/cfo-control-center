@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node scripts/build.js",
     "data": "node scripts/export-csv.js",
+    "sync": "node scripts/sync.js",
     "test": "node --test",
     "start": "node scripts/build.js && npx --yes serve dist"
   },

@@ -16,8 +16,9 @@
   // Load the shared markup, then the engine and UI scripts.
   fetch('src/body.html').then((r) => r.text()).then((html) => {
     document.getElementById('mount').outerHTML = html;
-    ['src/data.js', 'src/engine.js', 'src/app.js'].reduce((p, src) => p.then(() => new Promise((res) => {
-      const s = document.createElement('script'); s.src = src; s.onload = res; document.body.appendChild(s);
+    // data/live/live.js only exists after the first sync; without it the page uses sample data.
+    ['src/data.js', 'src/engine.js', 'data/live/live.js', 'src/live.js', 'src/app.js'].reduce((p, src) => p.then(() => new Promise((res) => {
+      const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = res; document.body.appendChild(s);
     })), Promise.resolve());
   });
 </script>

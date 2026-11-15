@@ -17,7 +17,9 @@ const head = `<title>Halden CFO Control Center</title>
 <style>
 ${read('src/styles.css')}
 </style>`;
-const scripts = ['src/data.js', 'src/engine.js', 'src/app.js'].map((f) => `<script>\n${read(f)}\n</script>`).join('\n');
+// data/live/live.js is written by scripts/sync.js; it is bundled when present.
+const files = ['src/data.js', 'src/engine.js', 'data/live/live.js', 'src/live.js', 'src/app.js'].filter((f) => fs.existsSync(path.join(root, f)));
+const scripts = files.map((f) => `<script>\n${read(f)}\n</script>`).join('\n');
 const body = `${read('src/body.html')}\n${scripts}`;
 
 const out = fragment

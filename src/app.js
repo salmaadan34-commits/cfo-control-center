@@ -289,5 +289,48 @@
     $('checks').innerHTML = ch.map((c) => `<li><span class="chip ${c.pass ? 'good' : 'bad'}">${c.pass ? 'Pass' : 'Fail'}</span><b>${esc(c.name)}</b><span>${esc(c.detail)}</span></li>`).join('');
   }
 
+  // ---------- Live feeds (Ramp, QuickBooks, HubSpot) ----------
+  // Not tied to the period filter: these show the latest sync, or sample data before the first one.
+  function renderLive() {
+    if (!window.CfoLive) return;
+    const LV = window.CfoLive.resolve(window.HaldenLive);
+    const usd = (v) => (v < 0 ? '−$' : '$') + Math.abs(Math.round(v)).toLocaleString('en-US');
+    const when = (iso) => { try { return new Date(iso).toLocaleString('en-US', { timeZone: 'America/Los_Angeles', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' }) + ' PT'; } catch (e) { return iso; } };
+    const chipFor = (src, el) => {
+      const [cls, txt] = src.live ? (src.state === 'error' ? ['warn', 'Last sync failed, showing ' + when(src.syncedAt)] : ['good', 'Live']) : src.state === 'error' ? ['bad', 'Sync failed, sample data'] : ['', 'Sample data'];
+      el.className = 'chip ' + cls; el.textContent = txt; if (src.state === 'error' && src.message) el.title = src.message;
+    };
+    $('sync-label').textContent = LV.lastRun ? `Live feeds last synced ${when(LV.lastRun)}` : 'Live feeds not connected yet';
+    $('live-chip').className = 'chip ' + (LV.anyLive ? 'good' : 'info');
+    $('live-chip').textContent = LV.anyLive ? `Last synced ${when(LV.lastRun)}` : 'Sample data until the first sync';
+    $('live-sub').textContent = 'Refreshed every day by a scheduled GitHub job from free test accounts at each tool. Amounts are whole US dollars. Each feed shows sample data until it is connected, and a failed feed keeps its last good pull.';
+    chipFor(LV.ramp, $('ramp-chip')); chipFor(LV.quickbooks, $('qbo-chip')); chipFor(LV.hubspot, $('hs-chip'));
+
+    const R = LV.ramp.summary, Q = LV.quickbooks.summary, H = LV.hubspot.summary;
+    const b = Object.fromEntries(H.buckets.map((x) => [x.bucket, x]));
+    $('live-stats').innerHTML = [
+      [`Card spend, last ${R.days} days`, usd(R.total), `${R.count} transactions${R.pending ? `, ${R.pending} pending` : ''} · Ramp`],
+      ['Open invoices', usd(Q.openTotal), `${usd(Q.overdueTotal)} overdue on ${Q.overdueCount} invoices · QuickBooks`],
+      ['Deals in progress', usd(b.in_progress.amount), `${b.in_progress.count} deals; ${b.open.count} more open worth ${usd(b.open.amount)} · HubSpot`],
+      [`Commission earned, ${H.year}`, usd(H.earned), `${usd(H.atStake)} more at stake in progress · HubSpot`],
+    ].map(([k, v, sub]) => `<div class="stat"><span>${k}</span><b>${v}</b><span>${sub}</span></div>`).join('');
+
+    $('ramp-sub').textContent = R.count ? `Top merchants: ${R.byMerchant.slice(0, 3).map((m) => `${m.label} ${usd(m.amount)}`).join(', ')}. Declined transactions are left out.` : 'No card transactions in the last 30 days.';
+    const cmax = Math.max(1, ...R.byCategory.map((c) => c.amount));
+    $('ramp-cats').innerHTML = R.byCategory.map((c) => `<div class="dept"><div class="h"><b>${esc(c.label)}</b><span>${usd(c.amount)} · ${R.total ? Math.round(c.amount / R.total * 100) : 0}%</span></div><div class="bar" role="img" aria-label="${esc(c.label)} ${usd(c.amount)}"><div class="fill" style="width:${(c.amount / cmax * 100).toFixed(1)}%"></div></div></div>`).join('');
+
+    const colors = ['var(--accent)', 'var(--line-strong)', 'var(--warn)', 'var(--bad)', 'var(--ink)'];
+    const worst = Q.topOverdue[0];
+    $('qbo-sub').textContent = `${Q.openCount} open invoices by days past due${worst ? `. Largest overdue: ${worst.customer}, ${usd(worst.balance)}, ${worst.days_past_due} days late` : ''}.`;
+    $('qbo-aging').setAttribute('aria-label', 'Open invoices by days past due: ' + Q.aging.map((x) => `${x.bucket} ${usd(x.amt)}`).join(', '));
+    $('qbo-aging').innerHTML = Q.aging.filter((x) => x.amt > 0).map((x) => `<span style="flex:${x.amt} 1 0;background:${colors[Q.aging.indexOf(x)]}" title="${x.bucket}: ${usd(x.amt)}"></span>`).join('');
+    $('qbo-legend').innerHTML = Q.aging.map((x, k) => `<div><span><i style="background:${colors[k]}"></i>${x.bucket}</span><b>${usd(x.amt)}</b></div>`).join('');
+
+    $('hs-sub').textContent = `Open: ${b.open.count} deals, ${usd(b.open.amount)}. In progress: ${b.in_progress.count}, ${usd(b.in_progress.amount)}. Closed won: ${b.closed_won.count}, ${usd(b.closed_won.amount)}. Closed lost: ${b.closed_lost.count}. Commission is each rep's rate times closed-won amount for deals closed in ${H.year}${H.commissionTies ? ', and it ties back to the deals.' : '. Check: commission does not tie back to the deals.'}`;
+    const pct = (r) => (r * 100).toFixed(r * 100 % 1 ? 1 : 0) + '%';
+    $('hs-table').innerHTML = `<table class="mini"><thead><tr><th>Rep</th><th>Rate</th><th>Closed won, ${H.year}</th><th>Commission earned</th><th>In progress</th><th>Commission at stake</th><th>Open</th></tr></thead><tbody>${H.reps.map((r) => `<tr><td>${esc(r.rep)}</td><td>${pct(r.rate)}</td><td>${usd(r.won_amount)}</td><td><b>${usd(r.earned)}</b></td><td>${usd(r.in_progress_amount)}</td><td>${usd(r.at_stake)}</td><td>${usd(r.open_amount)}</td></tr>`).join('')}<tr class="sub"><td><b>Total</b></td><td></td><td><b>${usd(H.reps.reduce((s, r) => s + r.won_amount, 0))}</b></td><td><b>${usd(H.earned)}</b></td><td><b>${usd(H.reps.reduce((s, r) => s + r.in_progress_amount, 0))}</b></td><td><b>${usd(H.atStake)}</b></td><td><b>${usd(H.reps.reduce((s, r) => s + r.open_amount, 0))}</b></td></tr></tbody></table>`;
+  }
+
   render();
+  renderLive();
 })();

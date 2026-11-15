@@ -1,0 +1,80 @@
+name: Sync live data
+
+# Pulls Ramp card spend, QuickBooks invoices and HubSpot deals from free test accounts
+# into data/live/, commits any change, and asks GitHub Pages to rebuild the dashboard.
+# Keys come only from repository secrets (Settings > Secrets and variables > Actions).
+# See SETUP.md.
+
+on:
+  schedule:
+    - cron: '0 13 * * *'   # every day at 13:00 UTC (5 AM Pacific in winter, 6 AM in summer)
+  workflow_dispatch:        # "Run workflow" button on the Actions tab
+
+permissions:
+  contents: write   # commit data/live/
+  pages: write      # request a Pages rebuild
+
+concurrency:
+  group: sync-live-data
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run tests
+        run: npm test
+
+      - name: Pull from Ramp, QuickBooks and HubSpot
+        env:
+          RAMP_CLIENT_ID: ${{ secrets.RAMP_CLIENT_ID }}
+          RAMP_CLIENT_SECRET: ${{ secrets.RAMP_CLIENT_SECRET }}
+          QBO_CLIENT_ID: ${{ secrets.QBO_CLIENT_ID }}
+          QBO_CLIENT_SECRET: ${{ secrets.QBO_CLIENT_SECRET }}
+          QBO_REFRESH_TOKEN: ${{ secrets.QBO_REFRESH_TOKEN }}
+          QBO_REALM_ID: ${{ secrets.QBO_REALM_ID }}
+          QBO_NEW_REFRESH_TOKEN_FILE: ${{ runner.temp }}/qbo_refresh_token
+          HUBSPOT_TOKEN: ${{ secrets.HUBSPOT_TOKEN }}
+        run: node scripts/sync.js
+
+      # QuickBooks may hand out a new refresh token on each run. Save it back to the
+      # QBO_REFRESH_TOKEN secret so tomorrow's run still works. Needs SECRETS_ADMIN_TOKEN,
+      # a fine-grained token for this repo with "Secrets: Read and write" (see SETUP.md).
+      - name: Save the new QuickBooks refresh token
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.SECRETS_ADMIN_TOKEN }}
+          TOKEN_FILE: ${{ runner.temp }}/qbo_refresh_token
+        run: |
+          if [ ! -s "$TOKEN_FILE" ]; then exit 0; fi
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::QuickBooks issued a new refresh token, but SECRETS_ADMIN_TOKEN is not set, so it was not saved. See SETUP.md."
+          else
+            gh secret set QBO_REFRESH_TOKEN --repo "$GITHUB_REPOSITORY" < "$TOKEN_FILE"
+            echo "Saved the new QuickBooks refresh token."
+          fi
+          rm -f "$TOKEN_FILE"
+
+      - name: Commit refreshed data
+        id: commit
+        run: |
+          if [ ! -d data/live ]; then echo "No live data yet."; exit 0; fi
+          git add data/live
+          if git diff --cached --quiet; then echo "No changes to commit."; exit 0; fi
+          git -c user.name="salmaadan34-commits" -c user.email="262210947+salmaadan34-commits@users.noreply.github.com" \
+            commit -m "Sync live data from Ramp, QuickBooks and HubSpot"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Rebuild GitHub Pages
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" --silent || echo "::notice::Pages will pick up the new data on its next build."
