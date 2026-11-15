@@ -1,0 +1,17 @@
+item,value
+name,"Halden Systems, Inc."
+blurb,"Fictional B2B SaaS company, about 140 employees"
+fiscalYear,2026
+closedThrough,2026-10
+openingCash,10400
+openingArr,18900
+minimumCash,1500
+revolverCommitment,4000
+closeTargetDays,5
+cash_forecast_asOf,2026-11-13
+cash_forecast_openingCash,4750
+cash_forecast_lowPoint,1718
+cash_forecast_lowPointWeek,2027-01-29
+cash_forecast_week13Cash,3435
+cash_forecast_week13Date,2027-02-12
+cash_forecast_downsideRevolverPeak,1750

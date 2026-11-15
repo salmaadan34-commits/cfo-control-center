@@ -1,0 +1,13 @@
+{
+  "name": "cfo-control-center",
+  "version": "1.0.0",
+  "description": "One-page CFO dashboard: ARR, budget vs actual with variance commentary, cash runway, working capital, headcount and close KPIs. Synthetic data.",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "data": "node scripts/export-csv.js",
+    "test": "node --test",
+    "start": "node scripts/build.js && npx --yes serve dist"
+  },
+  "engines": { "node": ">=18" }
+}

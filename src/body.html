@@ -1,0 +1,141 @@
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="1" width="20" height="20" rx="4" fill="var(--accent)"/><path d="M5 15.5h12M6 13l3.5-3.5 2.5 2.5L16.5 7" fill="none" stroke="var(--accent-ink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="co">Halden Systems, Inc.</span>
+      <span class="chip info">Synthetic sample data</span>
+      <span class="chip">Read-only</span>
+    </div>
+    <h1>CFO Control Center</h1>
+    <div class="meta">
+      <span>Fiscal 2026</span><span>Books closed through October</span><span>USD thousands</span><span>Budget = board-approved FY2026 plan</span>
+    </div>
+    <div class="toolbar">
+      <label for="month">Period</label>
+      <select id="month" class="select"></select>
+      <div class="seg" role="group" aria-label="Month or year to date">
+        <button type="button" id="mode-month" data-mode="month">Month</button>
+        <button type="button" id="mode-ytd" data-mode="ytd">Year to date</button>
+      </div>
+      <span class="spacer"></span>
+      <span class="chip" id="period-chip"></span>
+    </div>
+  </header>
+
+  <section class="summary" aria-labelledby="h-summary">
+    <div class="say">
+      <span class="eyebrow" id="h-summary">CFO summary</span>
+      <p id="summary-text"></p>
+    </div>
+    <div class="watch">
+      <span class="eyebrow">Watch list</span>
+      <ul id="watch"></ul>
+    </div>
+  </section>
+
+  <section class="kpis" id="kpis" aria-label="Key metrics"></section>
+
+  <div class="grid2">
+    <section class="panel" aria-labelledby="h-arr">
+      <div class="panel-head">
+        <h2 id="h-arr">ARR vs plan</h2>
+        <div class="legend"><span><i style="background:var(--accent)"></i>Actual</span><span><i class="dash"></i>Plan</span></div>
+      </div>
+      <div class="readout" id="arr-readout" aria-live="polite"></div>
+      <div class="chart" id="arr-chart"></div>
+      <details class="data"><summary>Show ARR data</summary><div class="table-scroll" id="arr-table"></div></details>
+    </section>
+    <section class="panel" aria-labelledby="h-bridge">
+      <div class="panel-head">
+        <h2 id="h-bridge">ARR bridge</h2>
+        <p id="bridge-sub"></p>
+      </div>
+      <div class="chart" id="bridge-chart"></div>
+      <div class="stats" id="bridge-stats"></div>
+    </section>
+  </div>
+
+  <section class="panel" aria-labelledby="h-bva">
+    <div class="panel-head">
+      <div>
+        <h2 id="h-bva">Budget vs actual</h2>
+        <p id="bva-sub"></p>
+      </div>
+      <span class="chip warn" id="bva-flags"></span>
+    </div>
+    <div class="table-scroll" id="bva"></div>
+    <p class="table-note" id="bva-note"></p>
+  </section>
+
+  <div class="grid2 even">
+    <section class="panel" aria-labelledby="h-cash">
+      <div class="panel-head">
+        <h2 id="h-cash">Cash and runway</h2>
+        <div class="legend"><span><i style="background:var(--accent)"></i>Month-end cash</span><span><i style="background:var(--warn)"></i>Nov 13 (13-week forecast)</span><span><i class="min"></i>Minimum cash</span></div>
+      </div>
+      <div class="readout" id="cash-readout" aria-live="polite"></div>
+      <div class="chart" id="cash-chart"></div>
+      <div class="stats" id="cash-stats"></div>
+    </section>
+    <section class="panel" aria-labelledby="h-wc">
+      <div class="panel-head">
+        <h2 id="h-wc">Working capital</h2>
+        <div class="legend"><span><i style="background:var(--accent)"></i>DSO</span><span><i class="dash"></i>DPO</span></div>
+      </div>
+      <div class="stats" id="wc-stats"></div>
+      <div class="readout" id="wc-readout" aria-live="polite"></div>
+      <div class="chart" id="wc-chart"></div>
+      <div>
+        <h3>AR aging at Nov 13</h3>
+        <p class="table-note" id="aging-sub"></p>
+      </div>
+      <div class="aging" id="aging" role="img"></div>
+      <div class="aging-legend" id="aging-legend"></div>
+    </section>
+  </div>
+
+  <section class="panel" aria-labelledby="h-people">
+    <div class="panel-head">
+      <div>
+        <h2 id="h-people">People and spend by department</h2>
+        <p>Bar shows spend against budget for the period; the black tick marks budget. Spend includes the department's share of payroll, benefits and non-payroll costs.</p>
+      </div>
+      <span class="chip" id="hc-chip"></span>
+    </div>
+    <div class="grid2 even">
+      <div class="depts" id="depts"></div>
+      <div class="table-scroll" id="hc-table"></div>
+    </div>
+  </section>
+
+  <div class="grid2 even">
+    <section class="panel" aria-labelledby="h-close">
+      <div class="panel-head">
+        <h2 id="h-close">Close and controls</h2>
+        <div class="legend"><span><i style="background:var(--accent)"></i>Business days to close</span><span><i class="min" style="border-top-color:var(--ink)"></i>5-day target</span></div>
+      </div>
+      <div class="stats" id="close-stats"></div>
+      <div class="readout" id="close-readout" aria-live="polite"></div>
+      <div class="chart" id="close-chart"></div>
+    </section>
+    <section class="panel" aria-labelledby="h-checks">
+      <div class="panel-head">
+        <h2 id="h-checks">Data integrity checks</h2>
+        <span class="chip" id="checks-chip"></span>
+      </div>
+      <ul class="checks" id="checks"></ul>
+      <h3>How this page is controlled</h3>
+      <ul class="notes">
+        <li>Read-only. Filters change what you see, never the data underneath.</li>
+        <li>Every number is computed from one set of month-end tables, so the summary, tiles, charts and P&amp;L always agree.</li>
+        <li>Variance commentary is written for every line over the review threshold, using headcount, ARR and close notes.</li>
+        <li>Cash and AR tie to the 13-week cash flow forecast for the same company.</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>
+    <p>Portfolio project. Halden Systems and every customer, vendor and figure on this page are fictional.</p>
+    <p>Definitions: ARR is annualized recurring subscription revenue at month end. Net burn is the average monthly fall in cash over the last three months. Runway is month-end cash divided by net burn. Burn multiple is net burn divided by net new ARR. Rule of 40 is ARR growth plus EBITDA margin.</p>
+  </footer>
+</div>

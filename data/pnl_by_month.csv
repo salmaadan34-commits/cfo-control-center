@@ -1,0 +1,151 @@
+month,line_id,line,group,department,actual_usd_k,budget_usd_k
+2026-01,subscription,Subscription revenue,revenue,,1587,1590
+2026-01,usage,Usage & services revenue,revenue,,400,430
+2026-01,hosting,Cloud hosting,cogs,,175,166
+2026-01,support_people,Support & onboarding team,cogs,support,154,154
+2026-01,data_feeds,Third-party data,cogs,,34,34
+2026-01,rd_people,R&D team,opex,rd,724,724
+2026-01,rd_other,R&D contractors & tools,opex,rd,95,95
+2026-01,sm_people,Sales & marketing team,opex,sm,464,464
+2026-01,sm_programs,Marketing programs,opex,sm,120,140
+2026-01,sm_commissions,Sales commissions,opex,sm,41,47
+2026-01,ga_people,G&A team,opex,ga,335,335
+2026-01,ga_facilities,Rent & facilities,opex,ga,156,156
+2026-01,ga_professional,"Legal, audit & professional fees",opex,ga,38,45
+2026-01,ga_other,"Software, insurance & other",opex,ga,64,66
+2026-01,da,Depreciation & amortization,da,,35,35
+2026-02,subscription,Subscription revenue,revenue,,1615,1621
+2026-02,usage,Usage & services revenue,revenue,,410,440
+2026-02,hosting,Cloud hosting,cogs,,178,169
+2026-02,support_people,Support & onboarding team,cogs,support,154,154
+2026-02,data_feeds,Third-party data,cogs,,34,34
+2026-02,rd_people,R&D team,opex,rd,739,739
+2026-02,rd_other,R&D contractors & tools,opex,rd,98,95
+2026-02,sm_people,Sales & marketing team,opex,sm,464,476
+2026-02,sm_programs,Marketing programs,opex,sm,135,140
+2026-02,sm_commissions,Sales commissions,opex,sm,47,50
+2026-02,ga_people,G&A team,opex,ga,335,335
+2026-02,ga_facilities,Rent & facilities,opex,ga,156,156
+2026-02,ga_professional,"Legal, audit & professional fees",opex,ga,42,45
+2026-02,ga_other,"Software, insurance & other",opex,ga,63,66
+2026-02,da,Depreciation & amortization,da,,35,35
+2026-03,subscription,Subscription revenue,revenue,,1645,1655
+2026-03,usage,Usage & services revenue,revenue,,445,450
+2026-03,hosting,Cloud hosting,cogs,,183,173
+2026-03,support_people,Support & onboarding team,cogs,support,154,163
+2026-03,data_feeds,Third-party data,cogs,,34,34
+2026-03,rd_people,R&D team,opex,rd,739,755
+2026-03,rd_other,R&D contractors & tools,opex,rd,102,95
+2026-03,sm_people,Sales & marketing team,opex,sm,476,488
+2026-03,sm_programs,Marketing programs,opex,sm,150,140
+2026-03,sm_commissions,Sales commissions,opex,sm,51,53
+2026-03,ga_people,G&A team,opex,ga,335,335
+2026-03,ga_facilities,Rent & facilities,opex,ga,156,156
+2026-03,ga_professional,"Legal, audit & professional fees",opex,ga,85,80
+2026-03,ga_other,"Software, insurance & other",opex,ga,66,66
+2026-03,da,Depreciation & amortization,da,,35,35
+2026-04,subscription,Subscription revenue,revenue,,1672,1690
+2026-04,usage,Usage & services revenue,revenue,,430,460
+2026-04,hosting,Cloud hosting,cogs,,182,176
+2026-04,support_people,Support & onboarding team,cogs,support,163,163
+2026-04,data_feeds,Third-party data,cogs,,34,34
+2026-04,rd_people,R&D team,opex,rd,755,770
+2026-04,rd_other,R&D contractors & tools,opex,rd,96,95
+2026-04,sm_people,Sales & marketing team,opex,sm,488,500
+2026-04,sm_programs,Marketing programs,opex,sm,128,140
+2026-04,sm_commissions,Sales commissions,opex,sm,42,51
+2026-04,ga_people,G&A team,opex,ga,335,347
+2026-04,ga_facilities,Rent & facilities,opex,ga,156,156
+2026-04,ga_professional,"Legal, audit & professional fees",opex,ga,40,45
+2026-04,ga_other,"Software, insurance & other",opex,ga,65,66
+2026-04,da,Depreciation & amortization,da,,35,35
+2026-05,subscription,Subscription revenue,revenue,,1700,1725
+2026-05,usage,Usage & services revenue,revenue,,455,470
+2026-05,hosting,Cloud hosting,cogs,,186,180
+2026-05,support_people,Support & onboarding team,cogs,support,163,173
+2026-05,data_feeds,Third-party data,cogs,,34,34
+2026-05,rd_people,R&D team,opex,rd,770,785
+2026-05,rd_other,R&D contractors & tools,opex,rd,104,95
+2026-05,sm_people,Sales & marketing team,opex,sm,488,512
+2026-05,sm_programs,Marketing programs,opex,sm,142,140
+2026-05,sm_commissions,Sales commissions,opex,sm,51,53
+2026-05,ga_people,G&A team,opex,ga,347,347
+2026-05,ga_facilities,Rent & facilities,opex,ga,156,156
+2026-05,ga_professional,"Legal, audit & professional fees",opex,ga,36,45
+2026-05,ga_other,"Software, insurance & other",opex,ga,67,66
+2026-05,da,Depreciation & amortization,da,,35,35
+2026-06,subscription,Subscription revenue,revenue,,1735,1763
+2026-06,usage,Usage & services revenue,revenue,,470,480
+2026-06,hosting,Cloud hosting,cogs,,190,184
+2026-06,support_people,Support & onboarding team,cogs,support,163,173
+2026-06,data_feeds,Third-party data,cogs,,34,34
+2026-06,rd_people,R&D team,opex,rd,770,801
+2026-06,rd_other,R&D contractors & tools,opex,rd,110,95
+2026-06,sm_people,Sales & marketing team,opex,sm,500,525
+2026-06,sm_programs,Marketing programs,opex,sm,165,140
+2026-06,sm_commissions,Sales commissions,opex,sm,55,56
+2026-06,ga_people,G&A team,opex,ga,347,347
+2026-06,ga_facilities,Rent & facilities,opex,ga,156,156
+2026-06,ga_professional,"Legal, audit & professional fees",opex,ga,44,45
+2026-06,ga_other,"Software, insurance & other",opex,ga,66,66
+2026-06,da,Depreciation & amortization,da,,35,35
+2026-07,subscription,Subscription revenue,revenue,,1759,1799
+2026-07,usage,Usage & services revenue,revenue,,440,490
+2026-07,hosting,Cloud hosting,cogs,,188,188
+2026-07,support_people,Support & onboarding team,cogs,support,163,173
+2026-07,data_feeds,Third-party data,cogs,,34,34
+2026-07,rd_people,R&D team,opex,rd,785,816
+2026-07,rd_other,R&D contractors & tools,opex,rd,99,95
+2026-07,sm_people,Sales & marketing team,opex,sm,500,537
+2026-07,sm_programs,Marketing programs,opex,sm,118,130
+2026-07,sm_commissions,Sales commissions,opex,sm,39,51
+2026-07,ga_people,G&A team,opex,ga,347,347
+2026-07,ga_facilities,Rent & facilities,opex,ga,156,156
+2026-07,ga_professional,"Legal, audit & professional fees",opex,ga,39,45
+2026-07,ga_other,"Software, insurance & other",opex,ga,68,66
+2026-07,da,Depreciation & amortization,da,,35,35
+2026-08,subscription,Subscription revenue,revenue,,1778,1834
+2026-08,usage,Usage & services revenue,revenue,,465,500
+2026-08,hosting,Cloud hosting,cogs,,192,191
+2026-08,support_people,Support & onboarding team,cogs,support,173,182
+2026-08,data_feeds,Third-party data,cogs,,34,34
+2026-08,rd_people,R&D team,opex,rd,785,832
+2026-08,rd_other,R&D contractors & tools,opex,rd,101,95
+2026-08,sm_people,Sales & marketing team,opex,sm,512,549
+2026-08,sm_programs,Marketing programs,opex,sm,130,130
+2026-08,sm_commissions,Sales commissions,opex,sm,47,53
+2026-08,ga_people,G&A team,opex,ga,347,347
+2026-08,ga_facilities,Rent & facilities,opex,ga,156,156
+2026-08,ga_professional,"Legal, audit & professional fees",opex,ga,62,45
+2026-08,ga_other,"Software, insurance & other",opex,ga,70,66
+2026-08,da,Depreciation & amortization,da,,35,35
+2026-09,subscription,Subscription revenue,revenue,,1809,1870
+2026-09,usage,Usage & services revenue,revenue,,480,510
+2026-09,hosting,Cloud hosting,cogs,,195,195
+2026-09,support_people,Support & onboarding team,cogs,support,173,182
+2026-09,data_feeds,Third-party data,cogs,,34,34
+2026-09,rd_people,R&D team,opex,rd,801,847
+2026-09,rd_other,R&D contractors & tools,opex,rd,97,95
+2026-09,sm_people,Sales & marketing team,opex,sm,512,561
+2026-09,sm_programs,Marketing programs,opex,sm,175,140
+2026-09,sm_commissions,Sales commissions,opex,sm,52,55
+2026-09,ga_people,G&A team,opex,ga,347,347
+2026-09,ga_facilities,Rent & facilities,opex,ga,156,156
+2026-09,ga_professional,"Legal, audit & professional fees",opex,ga,41,45
+2026-09,ga_other,"Software, insurance & other",opex,ga,69,66
+2026-09,da,Depreciation & amortization,da,,35,35
+2026-10,subscription,Subscription revenue,revenue,,1830,1908
+2026-10,usage,Usage & services revenue,revenue,,455,520
+2026-10,hosting,Cloud hosting,cogs,,196,199
+2026-10,support_people,Support & onboarding team,cogs,support,173,182
+2026-10,data_feeds,Third-party data,cogs,,34,34
+2026-10,rd_people,R&D team,opex,rd,801,847
+2026-10,rd_other,R&D contractors & tools,opex,rd,99,95
+2026-10,sm_people,Sales & marketing team,opex,sm,512,561
+2026-10,sm_programs,Marketing programs,opex,sm,160,150
+2026-10,sm_commissions,Sales commissions,opex,sm,41,56
+2026-10,ga_people,G&A team,opex,ga,347,347
+2026-10,ga_facilities,Rent & facilities,opex,ga,156,156
+2026-10,ga_professional,"Legal, audit & professional fees",opex,ga,48,45
+2026-10,ga_other,"Software, insurance & other",opex,ga,72,66
+2026-10,da,Depreciation & amortization,da,,35,35
