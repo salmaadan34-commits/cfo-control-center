@@ -277,7 +277,7 @@
     const tgt = `<line x1="${m.l}" x2="${W - m.r}" y1="${y(C.target)}" y2="${y(C.target)}" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
     $('close-chart').innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Business days to close by month against the five-day target">${grid(sc.ticks, y, m.l, W - m.r, (v) => v + 'd')}${bars}${tgt}</svg>`;
     hover($('close-chart'), $('close-readout'), (i) => { const c = E.CLOSE[i]; return `<b>${E.monthName(i)} close</b> · ${c.days} business days · ${c.openItems} open reconciling items · ${c.manualJEs} manual JEs · ${c.postClose} post-close adjustments`; },
-      () => `Close went from ${E.CLOSE[0].days} days in January to ${n.days} in ${E.monthName(S.m)}. Bars in the darker color met the ${C.target}-day target.`);
+      () => `Close went from ${E.CLOSE[0].days} days in January to ${n.days} in ${E.monthName(S.m)}. Teal bars met the ${C.target}-day target.`);
   }
 
   // ---------- Checks ----------
