@@ -4,12 +4,9 @@ A one-page CFO dashboard for a mid-size B2B SaaS company. It puts the numbers a 
 
 Everything runs in the browser with no dependencies. All company, customer and financial data is synthetic.
 
-![Screenshot of the dashboard](docs/screenshot.png)
-<!-- Add a screenshot: open the page, take a full-width capture and save it as docs/screenshot.png -->
+**Live demo:** [salmaadan34-commits.github.io/cfo-control-center](https://salmaadan34-commits.github.io/cfo-control-center/)
 
-**Live demo:** _add your GitHub Pages or demo link here_
-
-Companion project: the 13-week cash flow forecast for the same company (separate repository; add its link here). The two share cash, AR and treasury policy figures, and this dashboard checks that they agree.
+Companion project: the [13-week cash flow forecast](https://github.com/salmaadan34-commits/13-week-cash-flow) for the same company. The two share cash, AR and treasury policy figures, and this dashboard checks that they agree.
 
 ---
 
@@ -95,7 +92,7 @@ npm run data      # regenerates the CSVs in data/ from the sample data
 
 Open `dist/index.html` in any browser after building. To work on the source files directly, serve the folder (for example `npx serve .`) and open `index.html`.
 
-To publish on GitHub Pages, run `npm run build`, commit `dist/index.html` as `docs/index.html` (or remove `dist/` from `.gitignore`), and point Pages at that folder.
+The live demo is served by GitHub Pages straight from the repository root on `main`: `index.html` loads the files in `src/` as they are, so there is no build step to publish.
 
 ## Project structure
 
