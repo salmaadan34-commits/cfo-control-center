@@ -1,40 +1,28 @@
 /* Layout: one 1240px column. CFO summary and KPI tiles first, then ARR, the budget-vs-actual P&L,
    cash and working capital, people and spend, and close and controls. Same tokens as the 13-week forecast. */
 :root {
-  --bg: #F4F6F3;
-  --surface: #FFFFFF;
-  --surface-2: #ECF0EB;
-  --ink: #16201C;
-  --ink-2: #47534D;
-  --muted: #69756F;
-  --line: #D7DDD6;
-  --line-strong: #9AA59F;
-  --accent: #0D5E56;
-  --accent-ink: #FFFFFF;
-  --accent-soft: #D4E8E3;
-  --plan: #74807A;
-  --warn: #9A5404;
-  --warn-soft: #FAEBD4;
-  --bad: #B42318;
-  --bad-soft: #FBE2DE;
-  --good: #146F45;
-  --good-soft: #DCF0E4;
+  /* Navy palette in every mode: the same colors whether the device is set to light or dark. */
+  --bg: #0B1A33;
+  --surface: #11244A;
+  --surface-2: #172E57;
+  --ink: #E7EDF6;
+  --ink-2: #B6C2D6;
+  --muted: #8C9AB2;
+  --line: #233A63;
+  --line-strong: #41587F;
+  --accent: #4DB6A8;
+  --accent-ink: #062521;
+  --accent-soft: #153A4E;
+  --plan: #8C9AB2;
+  --warn: #EFA54A;
+  --warn-soft: #3A2911;
+  --bad: #F2796C;
+  --bad-soft: #3E1C19;
+  --good: #5CC78D;
+  --good-soft: #143226;
   --f-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
   --f-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --radius: 6px;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0E1412; --surface: #151D1A; --surface-2: #1C2622; --ink: #E3EBE7; --ink-2: #B2BEB8; --muted: #8C9892;
-    --line: #2A3631; --line-strong: #4B5952; --accent: #4DB6A8; --accent-ink: #062521; --accent-soft: #163A34; --plan: #8C9892;
-    --warn: #EFA54A; --warn-soft: #3A2911; --bad: #F2796C; --bad-soft: #3E1C19; --good: #5CC78D; --good-soft: #143226;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0E1412; --surface: #151D1A; --surface-2: #1C2622; --ink: #E3EBE7; --ink-2: #B2BEB8; --muted: #8C9892;
-  --line: #2A3631; --line-strong: #4B5952; --accent: #4DB6A8; --accent-ink: #062521; --accent-soft: #163A34; --plan: #8C9892;
-  --warn: #EFA54A; --warn-soft: #3A2911; --bad: #F2796C; --bad-soft: #3E1C19; --good: #5CC78D; --good-soft: #143226;
   color-scheme: dark;
 }
 
