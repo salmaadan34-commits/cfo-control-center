@@ -292,7 +292,7 @@
   // ---------- Live feeds (Ramp, QuickBooks, HubSpot) ----------
   // Not tied to the period filter: these show the latest sync, or sample data before the first one.
   function renderLive() {
-    if (!window.CfoLive) return;
+    if (!window.CfoLive || !$('h-live')) return;
     const LV = window.CfoLive.resolve(window.HaldenLive);
     const usd = (v) => (v < 0 ? '−$' : '$') + Math.abs(Math.round(v)).toLocaleString('en-US');
     const when = (iso) => { try { return new Date(iso).toLocaleString('en-US', { timeZone: 'America/Los_Angeles', month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' }) + ' PT'; } catch (e) { return iso; } };
